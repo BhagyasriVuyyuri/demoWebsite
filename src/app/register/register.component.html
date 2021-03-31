@@ -1,0 +1,69 @@
+
+
+<h1 class="text-center  py-3" style="color:#05386B;"><b>Registration Form</b></h1>
+<div class="container" >
+
+    
+    <form action="form" id="form" class="row g-3 p-3" #formRef="ngForm" (ngSubmit)="formRef.form.valid&&onSubmit(formRef)">
+      
+        <div class="col-md-7">
+            <label for="fn" class="form-label" >First Name</label>
+            <input  type="text" class="form-control" id="fn" name="firstname" ngModel required #firstname="ngModel">
+           
+            <span style="color: red;" *ngIf="(firstname.touched || formRef.submitted) && firstname.errors?.required">
+               <b> FirstName is required</b>
+            </span>
+        </div>
+
+       
+        <div class="col-md-7">
+            <label for="ln" class="form-label">Last Name</label>
+            <input type="text" class="form-control" id="ln" name="lastname" ngModel required
+                #lastname="ngModel">
+          
+            <span style="color: red;" *ngIf="(lastname.touched || formRef.submitted) && lastname.errors?.required">
+               <b> LastName is required</b>
+            </span>
+        </div>
+        <div class="col-md-7">
+            <label for="inputUsername" class="form-label"  >Username</label>
+            <input type="text" class="form-control" id="inputUsername" name="username" ngModel required minlength="4" #username="ngModel">
+            <!-- validation for username -->
+            <span  style="color: red;" *ngIf="(username.touched || formRef.submitted) && username.errors?.required">
+               <b> Username is required</b>
+            </span>
+            <span style="color: red;" *ngIf="username.touched &&username.errors?.minlength">
+                <b> Username should contain minimum 4 characters.</b>
+            </span>
+        </div>
+        <div class="col-md-7">
+            <label for="inputEmail" class="form-label" >Email</label>
+            <input  type="email" class="form-control" id="inputEmail" name="email" ngModel required #email="ngModel">
+            <!-- validation for email -->
+            <span style="color: red;" *ngIf="(email.touched || formRef.submitted) && email.errors?.required">
+               <b> Email is required</b>
+            </span>
+        </div>
+
+        <!-- password -->
+        <div class="col-md-7">
+            <label for="inputPassword" class="form-label"  >Password</label>
+            <input type="password" class="form-control" id="inputPassword" name="password" ngModel required minlength="6" 
+             #password="ngModel">
+            <!-- validation for password -->
+            <span style="color: red;" *ngIf="(password.touched || formRef.submitted) && password.errors?.required">
+               <b> Password is required</b>
+            </span>     
+            <span style="color: red;" *ngIf="password.touched &&password.errors?.minlength">
+              <b>  Password should contain atleast 6 characters.</b>
+            </span>
+        </div>
+        <div class="col-12 mt-3 text-center">
+            <button type="submit" class="btn btn-success text-white" >Register</button>
+        </div>
+        <div>
+            <a class="nav-link" routerLink="login" routerLinkActive="active" (click)="login()" style="text-align: center;color:purple;"><h5 class="far fa-user m-2">Existing User? Log in</h5></a>
+        </div>
+ 
+    </form>
+</div>
