@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AdminService } from '../admin.service';
 import { UserService } from '../user.service';
@@ -10,9 +11,14 @@ import { UserService } from '../user.service';
 })
 export class LoginComponent implements OnInit {
 
+  loginForm:FormGroup;
   constructor(private as:AdminService,private router:Router,private us:UserService) { }
 
   ngOnInit(): void {
+    this.loginForm=new FormGroup({
+       username:new FormControl(null,Validators.required),
+       password:new FormControl(null,Validators.required)
+    })
   }
   reset(){
     this.router.navigateByUrl("/resetpassword")
@@ -20,20 +26,27 @@ export class LoginComponent implements OnInit {
   register(){
     this.router.navigateByUrl("/register")
   }
-  onSubmit(formRef){
+  onSubmit(){
 
-    let userCredObj=formRef.value;
-    if(userCredObj.usertype=="user"){
+    let userCredObj=this.loginForm.value;
+   
       this.us.loginUser(userCredObj).subscribe(
         res=>{
           if(res["message"]=="success"){
+            localStorage.setItem("token",res["signedToken"])
               localStorage.setItem("username",res["username"])
-
+              if(res.username=="Admin"){
+                this.router.navigateByUrl("/admincomp")
+              }
             //navigate to user component
-            this.router.navigateByUrl("/home")
+            else{
+              this.router.navigateByUrl("/home")
+            }
           }
           else{
             alert(res["message"])
+            console.log("error is",res["reason"]);
+            
             
           }
         },
@@ -43,27 +56,6 @@ export class LoginComponent implements OnInit {
         }
       )
 
-    }
-
-      
-       if(userCredObj.usertype=="admin"){
-        this.as.adminLogin(userCredObj).subscribe(
-          res=>{
-            if(res["message"]=="success"){
-            localStorage.setItem("adminname",res["username"])
-            this.router.navigateByUrl("/admincomp")
-            }
-            else{
-              alert(res["message"])
-              
-            }
-          },
-          err=>{
-            alert("Error occurred")
-            console.log(err)
-          }
-        )
       }
-  }
 
 }

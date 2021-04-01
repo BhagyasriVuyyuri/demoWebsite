@@ -9,9 +9,7 @@ export class AdminService {
 
   constructor(private hc:HttpClient) { }
 
-  adminLogin(adminObj):Observable<any>{
-    return this.hc.post("/admin/login",adminObj)
-  }
+ 
 
   createProduct(product:any):Observable<any>{
 

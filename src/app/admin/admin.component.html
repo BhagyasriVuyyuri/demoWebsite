@@ -1,7 +1,7 @@
 
 <body>
     <div class="text-right bg-light px-5" style="height: 100px;">
-        <h3 class="text-center d-1 pr-5"><h4 class="fas fa-user text-info p-2"></h4>{{adminname}}</h3>
+        <h3 class="text-center d-1 pr-5"><h4 class="fas fa-user text-info p-2"></h4>{{username}}</h3>
         <a routerLink="/admincomp" style="color: rebeccapurple;text-decoration: none;" routerLinkActive="active"><b>Add Products </b></a>
          <a routerLink="/allproducts" style="color: darkmagenta;text-decoration: none;padding-left: 20px;" routerLinkActive="active"><b>Show Products</b> </a> 
        
@@ -11,76 +11,64 @@
     <div class="container">
         <p class="display-4 text-secondary text-center mt-3">Adding New Products</p>
     
-        <form class="row g-3 mt-5 bg-light p-3" #formRef="ngForm" (ngSubmit)="formRef.form.valid&&onSubmit(formRef)">
+        <form action="form" class="row g-3 mt-5 bg-light p-3" [formGroup]="registerForm" (ngSubmit)="onSubmit()">
             
     
             <!-- product name -->
-            <div class="col-md-6">
-                <label for="productname" class="form-label">Product Name</label>
-                <input type="text" class="form-control" id="productname" name="productname" placeholder="name of the product" ngModel required #product="ngModel">
+            <div class="form-group col-md-6">
+                <label  class="form-label">Product Name</label>
+                <input type="text" class="form-control"  name="productname" placeholder="name of the product" formControlName="productname">
                
-                <span class="text-danger" *ngIf="(product.touched || formRef.submitted) && product.errors?.required">
-                    Name of the Product is required
-                </span>
             </div>
            
-            <div class="col-md-6">
-                <label for="productID" class="form-label">product ID</label>
-                <input type="number" class="form-control" id="productID" name="productID" placeholder="product ID" ngModel required #productID="ngModel">
+            <div class="form-group col-md-6">
+                <label  class="form-label">product ID</label>
+                <input type="number" class="form-control"  name="productID" placeholder="product ID" formControlName="productID">
               
-                <span class="text-danger" *ngIf="(productID.touched || formRef.submitted) && productID.errors?.required">
-                    product ID is required
-                </span>
+               
             </div>
             
-            <div class="col-md-4">
-                <label for="Pcolour" class="form-label">Brand</label>
-                <input type="text" class="form-control" id="Pcolour" name="brand" placeholder="brand of the product" ngModel required #Pcolour="ngModel">
+            <div class="form-group col-md-4">
+                <label  class="form-label">Brand</label>
+                <input type="text" class="form-control"  name="brand" placeholder="brand of the product" formControlName="brand">
                
-                <span class="text-danger" *ngIf="(Pcolour.touched || formRef.submitted) && Pcolour.errors?.required">
-                    Brand is required
-                </span>
+               
             </div>
             
     
-            <div class="col-md-4">
-                <label for="Pcolour" class="form-label">Colour</label>
-                <input type="text" class="form-control" id="Pcolour" name="colour" placeholder="colour of the product" ngModel required #Pcolour="ngModel">
-                <!-- validation for colour -->
-                <span class="text-danger" *ngIf="(Pcolour.touched || formRef.submitted) && Pcolour.errors?.required">
-                    Colour is required
-                </span>
+            <div class="form-group col-md-4">
+                <label  class="form-label">Colour</label>
+                <input type="text" class="form-control"  name="colour" placeholder="colour of the product" formControlName="colour">
+              
             </div>
-            <div class="col-md-4">
-                <label for="Pcategory" class="form-label">Category</label>
-                <input type="text" class="form-control" id="Pcategory" name="category" placeholder="category of the product" ngModel required #Pcategory="ngModel">
+            <div class="form-group col-md-4">
+                <label class="form-label">Category</label>
+                <input type="text" class="form-control"  name="category" placeholder="category of the product" formControlName="category">
                
-                <span class="text-danger" *ngIf="(Pcategory.touched || formRef.submitted) && Pcategory.errors?.required">
-                    Category is required
-                </span>
+                
             </div>
     
-            <!-- cost of the product -->
-            <div class="col-md-4">
-                <label for="Pcost" class="form-label">Cost</label>
-                <input type="number" class="form-control" id="Pcost" name="cost" placeholder="cost in Rupees" ngModel required #cost="ngModel">
+          
+            <div class="form-group col-md-4">
+                <label class="form-label">Cost</label>
+                <input type="number" class="form-control"  name="cost" placeholder="cost in Rupees" formControlName="cost">
                
-                <span class="text-danger" *ngIf="(cost.touched || formRef.submitted) && cost.errors?.required">
-                    Cost is required
-                </span>
+               
             </div>
             
-            <!-- product description -->
-            <div class="col-12">
-                <label for="Pdescription" class="form-label">Product Description</label>
-                <input type="text" class="form-control" id="Pdescription" name="description" placeholder="description of product" ngModel #description="ngModel">
+        
+            <div class="form-group  col-12">
+                <label  class="form-label">Product Description</label>
+                <input type="text" class="form-control" name="description" placeholder="description of product" formControlName="description">
             </div>
     
             <!-- photo -->
-            <div class="col-12 py-3"> <input type="file" class="form-control" (change)="incomingfile($event)" name="photo" accept='image/*' placeholder="Upload image of the product">
+            <div class="form-group col-12 py-3">
+                <label>Upload Product Image</label>
+                 <input type="file" class="form-control" (change)="incomingfile($event)" name="photo" accept='image/*' placeholder="Upload image of the product">
             </div>
             <div class="col-12 pt-1">
-                <button type="submit" class="btn btn-primary">Add to Products</button>
+                <button type="submit" class="btn btn-primary" [disabled]="registerForm.invalid">Add to Products</button>
             </div>
         </form>
     </div>

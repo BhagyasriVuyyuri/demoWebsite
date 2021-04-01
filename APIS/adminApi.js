@@ -30,24 +30,7 @@ const storage = new CloudinaryStorage({
 //congigure multer
 var upload = multer({ storage: storage });
 
-adminApiObj.post("/login", asyncHandler(async (req, res, next) => {
 
-    //verify username
-    if (req.body.username == process.env.ADMIN_USER_NAME) {
-
-        if (req.body.password==process.env.ADMIN_PASSWORD) {
-              res.send({ message: "success",username: process.env.ADMIN_USER_NAME })
-        }
-        //if passwords are not matched
-        else {
-            res.send({ message: "Invalid password" })
-        }
-    }
-    else {
-        res.send({message:"Invalid username"})
-    }
-
-}))
 adminApiObj.post("/addproduct",upload.single('photo'), asyncHandler(async(req,res,next)=>{
     
     let productCollectionObj = req.app.get("productCollectionObj");

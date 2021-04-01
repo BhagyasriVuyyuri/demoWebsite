@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AdminService } from '../admin.service';
 
@@ -15,20 +16,30 @@ export class AdminComponent implements OnInit {
     this.file= event.target.files[0]; 
   }
   adminname;
-  //inject user service
+  registerForm:FormGroup;
   constructor(private as:AdminService,private router:Router) { }
 
   ngOnInit(): void {
     this.username=localStorage.username;
     this.adminname=localStorage.getItem("adminname")
+
+    this.registerForm=new FormGroup({
+        productname:new FormControl(null,Validators.required),
+        productID:new FormControl(null,Validators.required),
+        brand:new FormControl(null,Validators.required),
+        colour:new FormControl(null,Validators.required),
+        category:new FormControl(null,Validators.required),
+        cost:new FormControl(null,Validators.required),
+        description:new FormControl(null,Validators.required)
+    })
   }
   logout(){
     localStorage.clear();
     this.router.navigateByUrl("/login");
   }
 
-  onSubmit(ref:any){   
-    let productObj = ref.value;
+  onSubmit(){   
+    let productObj = this.registerForm.value;
     console.log(productObj);
     let formData = new FormData();
 

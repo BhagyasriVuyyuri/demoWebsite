@@ -8,42 +8,35 @@
        
      
     </div>
-    
-    <div class="container-fluid">
-        <p class="display-4 text-secondary text-center mt-3">Products List</p>
-        <div class="row mt-5">            
-                    <div class="form-group mx-auto" style="margin-left: 50px;">
-                        <table id="products" class="table table-bordered">
-                            <thead class="thead">
-                              
-                                <th style="margin-right: 10px;">Product Name</th>
-                                <th>Product ID</th>
-                                <th style="padding-right: 10px;"> Brand</th> 
-                                <th>Colour</th> 
-                                <th>Price</th>
-                                <th>Category</th>
-                                <th>Description</th>
-                                <th>Product Image</th>
-                                <th>Remove Item</th>
-                            </thead>
-                            <tr *ngFor="let p of products, let i=index">
-                              
-                                <td>{{p.productname}}</td>
-                                 <td>{{p.productID}}</td>
-                                 <td>{{p.brand}}</td> 
-                                 <td>{{p.colour}}</td>
-                                <td><h5>{{p.cost}}</h5></td>
-                                <td>{{p.category}}</td>
-                                <td>{{p.description}}</td>
-                                <td><img [src]=p.productImgLink  alt="" height="100px" width="100px"></td>
-                                <td><a (click)="delete(i)"> <h3 class="fas fa-trash-alt text-danger  mt-3"></h3></a></td>
-                            </tr>
-                        </table>
-                    </div>          
-                
-                
-                    
-         
-        </div>
+
+
+<div class="container mt-5">
+    <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4">
+      <div *ngFor="let p of products,let i=index">
+         <div class="col">
+         <div class="card border-success mb-3" style="border-radius: 5%;height: 35rem;">
+           <img [src]=p.productImgLink class="card-img-top mx-auto mt-2" style="height: 200px;width:200px;" alt="...">
+          <div class="card-body">
+            <h3 class="card-title text-center" style="color: chocolate">{{p.productname}}</h3>
+            <h5 class="card-text">Brand:{{p.brand}}</h5>
+            <h5 class="card-text">Product ID:{{p.productID}}</h5>
+            <h5 class="card-text">Colour:{{p.colour}}</h5>
+            <h5 class="card-text">Description:{{p.description}}</h5>
+            <h5 class="card-text">Category:{{p.category}}</h5>
+            <h5 class="card-text">Cost:{{(p.cost)| currency:"INR"}}</h5>
+          </div>
+          <div>
+             <div>
+               <a  class="btn btn-info" style="float: left;margin: 10px;">Edit</a>
+             </div>
+             <div>
+               <a  class="btn btn-danger" style="float:right;margin: 10px;" (click)="delete(i)"><h5 class="fas fa-trash-alt"></h5>Delete</a>
+             </div>
+          </div>
+         </div>
+         </div>
+      </div>
     </div>
-    </body>
+ </div>
+ 
+</body>

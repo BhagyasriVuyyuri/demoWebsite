@@ -2,7 +2,9 @@ const exp=require("express");
 const userApiObj=exp.Router();
 const bc=require("bcryptjs")
 const asynchandler=require("express-async-handler");
+const verifyToken=require("./middlewares/verifyToken")
 require("dotenv").config();
+const jwt=require("jsonwebtoken")
 userApiObj.use(exp.json())
 userApiObj.post("/register", asynchandler(async  (req,res,next)=>{
    
@@ -38,9 +40,10 @@ userApiObj.post("/register", asynchandler(async  (req,res,next)=>{
          
           let status=await bc.compare(userCredObj.password,user.password)
           if(status==true){
-  
-          res.send({message:"success",username:user.username})
-  
+          
+            let token=await jwt.sign({username:user.username},process.env.secret,{expiresIn:10})
+            res.send({message:"success",signedToken:token,username:user.username})
+    
           }
           else{
               res.send({message:"Invalid password"})
@@ -68,7 +71,7 @@ userApiObj.post("/register", asynchandler(async  (req,res,next)=>{
     
 }))
   //get user
-  userApiObj.get("/getuser/:username",asynchandler(async (req,res,next)=>{
+  userApiObj.get("/getuser/:username",verifyToken,asynchandler(async (req,res,next)=>{
       //get user collectionobject
       let userCollectionObj= req.app.get("userCollectionObj")
      let userObj=await userCollectionObj.findOne({username:req.params.username})
