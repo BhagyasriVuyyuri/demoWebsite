@@ -12,7 +12,8 @@ export class HomeComponent implements OnInit {
 
   username;
   products=[];
-  
+  searchTerm;
+  search
   constructor(private as:AdminService,private router:Router) { }
 
   ngOnInit(): void {
@@ -21,7 +22,9 @@ export class HomeComponent implements OnInit {
     this.getAllProducts();
    
   }
-  
+  login(){
+    this.router.navigateByUrl("/login")
+  }
   getAllProducts(){
     this.as.getProducts().subscribe(
       res=>{

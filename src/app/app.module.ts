@@ -9,6 +9,8 @@ import { HomeComponent } from './home/home.component';
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 import { ResetpasswordComponent } from './resetpassword/resetpassword.component';
+import { EditproductComponent } from './editproduct/editproduct.component';
+import { SearchPipe } from './search.pipe';
 
 
 @NgModule({
@@ -17,7 +19,9 @@ import { ResetpasswordComponent } from './resetpassword/resetpassword.component'
     HomeComponent,
     LoginComponent,
     RegisterComponent,
-    ResetpasswordComponent
+    ResetpasswordComponent,
+    EditproductComponent,
+    SearchPipe
       
   ],
   imports: [

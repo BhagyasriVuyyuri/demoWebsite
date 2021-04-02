@@ -8,4 +8,21 @@ h3{
     font-family: 'Merriweather', serif;
     font-family: 'Playfair Display', serif;
 }
-
+nav{
+    font-family: 'Merriweather', serif;
+    font-family: 'Playfair Display', serif;
+}
+.active{
+    font-weight: bold;
+}
+.one{
+    text-decoration: none;
+    list-style: none;
+    font-size: 13px;
+    color: white;
+}
+.two{
+    text-decoration: none;
+    color: white;
+    font-size: 13px;
+}
