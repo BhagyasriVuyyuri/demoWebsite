@@ -17,12 +17,13 @@ nav{
 }
 .heading{
     text-decoration: none;
-    list-style: none;
+    list-style-type: none;
     font-size: 14px;
     color: white;
 }
 .element{
+    font-size: 14px;
     text-decoration: none;
     color: white;
-    font-size: 14px;
+    
 }
