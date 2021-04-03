@@ -15,14 +15,15 @@ nav{
 .active{
     font-weight: bold;
 }
-.one{
+.heading{
     text-decoration: none;
-    list-style: none;
-    font-size: 13px;
+    list-style-type: none;
+    font-size: 14px;
     color: white;
 }
-.two{
+.element{
+    font-size: 14px;
     text-decoration: none;
     color: white;
-    font-size: 13px;
+    
 }
