@@ -1,11 +1,15 @@
 
-
-<h1 class="text-center  py-3" style="color:#05386B;"><b>Registration Form</b></h1>
-<div class="container" >
-
-    
-    <form action="form" id="form" class="row g-3 p-3" [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+<h1 class="text-center  py-3" style="color:#05386B;"><b>SIGN UP</b></h1>
+<div class="container">
+    <div class="row">
+        <div class="col-md-4">
+            <img src="https://www.newsx.com/wp-content/uploads/2015/12/flipkart.jpg" alt="" height="300rem" width="300rem">
+        </div>
+        <div class="col-md-7"> 
+           <form action="form" id="form" class="row g-2 p-2" [formGroup]="registerForm" (ngSubmit)="onSubmit()">
       
+         
+            
         <div class="col-md-7">
             <label  class="form-label" >First Name</label>
             <input  type="text" class="form-control"  name="firstname" formControlName="firstname">
@@ -48,12 +52,15 @@
                 <p *ngIf="registerForm.get('password').hasError('pattern')&&registerForm.get('password').touched" style="color: red;">
                      Password should have atleast 1 capital letter and 1 number.</p>
         </div>
-        <div class="col-12 mt-3 text-center">
+        <div class="col-12 mt-3 ">
             <button type="submit" class="btn btn-success text-white" [disabled]="registerForm.invalid">Register</button>
         </div>
         <div>
-            <a class="nav-link" routerLink="login" routerLinkActive="active" (click)="login()" style="text-align: center;color:purple;"><h5 class="far fa-user m-2">Existing User? Log in</h5></a>
+            <a class="nav-link" routerLink="login" routerLinkActive="active" (click)="login()" style="color:purple;"><h5 class="far fa-user m-2">Existing User? Log in</h5></a>
         </div>
- 
+       
     </form>
+       </div>
+    </div>
+    
 </div>

@@ -15,9 +15,14 @@ export class SearchPipe implements PipeTransform {
     
        let productname=products.filter(obj=>obj.productname.toLowerCase().indexOf(searchTerm.toLowerCase())!==-1);
        let brand=products.filter(obj=>obj.brand.toLowerCase().indexOf(searchTerm.toLowerCase())!==-1);
-       if(productname.length!==0){
-         return productname;
+       let category=products.filter(obj=>obj.category.toLowerCase().indexOf(searchTerm.toLowerCase())!==-1);
+    
+       if(category.length!==0){
+         return category;
        }
+       else if(productname.length!==0){
+        return productname;
+      }
        else{
          return brand;
        }

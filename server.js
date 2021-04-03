@@ -32,7 +32,6 @@ app.use((req,res,next)=>{
     
        res.send({message:`${req.url} is invalid`})  
 })
-
 app.use((err,req,res,next)=>{
        res.send({message:"error occurred",reason:err.message})
 })

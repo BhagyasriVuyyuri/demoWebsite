@@ -16,3 +16,7 @@ h2{
    background-repeat: no-repeat;
    background-size: cover;
 }*/
+.card{
+    border-color: teal;
+    border: 2px solid teal;
+}

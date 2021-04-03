@@ -70,10 +70,41 @@ adminApiObj.get("/oneproduct/:productname",asyncHandler(async(req,res,next)=>{
     let products = await productCollectionObj.findOne({productname:req.params.productname});
     res.send({message:products})
 }))
+adminApiObj.get("/getproductdata/:productname",asyncHandler(async (req,res,next)=>{
 
-
-
-
+    let productCollectionObj = req.app.get("productCollectionObj") ;
+  
+    let proObj=await productCollectionObj.findOne({productname:req.params.productname});
+    
+    console.log(proObj);
+    if(proObj!==null){
+        res.send({Details:proObj})
+    }
+    else{
+        res.send({message:"product not found"})
+    }
+    
+    }))
+adminApiObj.put("/updateproduct",asyncHandler(async(req,res,next)=>{
+    //console.log(req.body)
+    let Allproducts=req.app.get("productCollectionObj")
+    let productDetails=await Allproducts.findOne({productID:req.body.productID})
+    if(productDetails!==null){
+        let edit=await Allproducts.updateOne({productID:req.body.productID},{$set:{
+            productname:req.body.productname,
+            brand:req.body.brand,
+            category:req.body.category,
+            colour:req.body.colour,
+            cost:req.body.cost,
+            description:req.body.description
+           
+        }});
+        res.send({message:true});
+    }
+    else{
+        res.send({message:"product not found"})
+    }
+}))
 
 
 //delete from all products

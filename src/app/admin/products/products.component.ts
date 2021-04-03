@@ -55,5 +55,8 @@ export class ProductsComponent implements OnInit {
    back(){
      this.router.navigateByUrl("/admincomp")
    }
-
+   edit(p){
+    localStorage.setItem("productname",p["productname"]);
+    this.router.navigateByUrl("/admin/editproduct");
+   }
 }
