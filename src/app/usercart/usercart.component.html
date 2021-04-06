@@ -1,0 +1,31 @@
+
+<div class="bg-light px-5 text-right">
+  <button class="btn btn-warning float-start m-3" (click)="back()" style="margin-left: 20px;"><h5 class="fas fa-backward"></h5>Back</button>
+        
+    <button class="btn btn-success float-end px-4 my-2" (click)="logout()"><h6 class="fas fa-sign-out-alt m-1"></h6>Logout</button>
+</div>
+
+<div class="container-fluid" style="background-image: url(https://us.123rf.com/450wm/lightfieldstudios/lightfieldstudios1909/lightfieldstudios190921490/130549673-festive-wrapped-presents-in-shopping-cart-on-blue-background-with-copy-space.jpg?ver=6);background-size: cover;background-repeat: no-repeat;">
+    <p class="display-4 text-dark text-center">Cart of {{username}}</p>
+    
+    <div class="card mb-3" *ngFor="let p of cart, let i=index" style="max-width: 700px;max-height: 100%;">
+        <div class="row">
+          <div class="col-md-4">
+            <img [src]=p.productImgLink class="card-img-top" style="width: 100%;" alt="..."> 
+          </div>
+          <div class="col-md-8">
+            <div class="card-body">
+              <h5 class="card-title"><b>{{p.productname}}</b></h5>
+               <p class="card-title">Product ID : {{p.productID}}</p> 
+               <p class="card-title">Brand: {{p.brand}}</p>   
+              <p class="card-title">Cost : {{(p.cost)| currency:"INR"}}</p> 
+              <p class="card-title">Product Description : {{p.description}}</p> 
+            
+              <p class="card-title"><button class="btn btn-danger" (click)="delete(i)"><h5 class="fas fa-times-circle"></h5>delete</button></p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+ 
+</div>

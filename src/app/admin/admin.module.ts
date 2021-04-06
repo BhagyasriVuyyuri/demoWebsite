@@ -6,6 +6,7 @@ import { ProductsComponent } from './products/products.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { EditproductComponent } from './editproduct/editproduct.component';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
   declarations: [AdminComponent, ProductsComponent, EditproductComponent],
@@ -14,7 +15,8 @@ import { EditproductComponent } from './editproduct/editproduct.component';
     AdminRoutingModule,
     FormsModule,
     ReactiveFormsModule,
-    HttpClientModule
+    HttpClientModule,
+    NgbModule
     
   ]
 })

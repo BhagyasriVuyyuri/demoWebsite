@@ -12,7 +12,12 @@ import { ResetpasswordComponent } from './resetpassword/resetpassword.component'
 
 import { SearchPipe } from './search.pipe';
 import { CategoryPipe } from './category.pipe';
-
+import { ViewproductComponent } from './viewproduct/viewproduct.component';
+import { UsercartComponent } from './usercart/usercart.component';
+import { FooterComponent } from './footer/footer.component';
+import {ToastrModule} from 'ngx-toastr';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
   declarations: [
@@ -22,7 +27,10 @@ import { CategoryPipe } from './category.pipe';
     RegisterComponent,
     ResetpasswordComponent,
     SearchPipe,
-    CategoryPipe
+    CategoryPipe,
+    ViewproductComponent,
+    UsercartComponent,
+    FooterComponent
       
   ],
   imports: [
@@ -30,7 +38,14 @@ import { CategoryPipe } from './category.pipe';
     AppRoutingModule,
     FormsModule,
     ReactiveFormsModule,
-    AdminModule
+    AdminModule,
+    ToastrModule.forRoot({
+      timeOut:2000,
+      positionClass:'toast-top-center',
+      closeButton:true
+    }),
+    BrowserAnimationsModule,
+    NgbModule
   ],
   providers: [],
   bootstrap: [AppComponent]

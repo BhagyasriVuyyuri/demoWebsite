@@ -23,15 +23,15 @@ export class AdminService {
   
     return this.hc.post("/admin/delete",obj);
   }
-  getItem(obj):Observable<any>{
   
-    return this.hc.get("/admin/oneproduct/"+obj);
-  }
 
   getproductdata(productname):Observable<any>{
     return this.hc.get("/admin/getproductdata/"+productname);
   }
- 
+  viewItem(obj):Observable<any>{
+    return this.hc.post("/viewproduct",obj)
+  }
+  
   editproduct(obj):Observable<any>{
     return this.hc.put("/admin/updateproduct",obj)
   }

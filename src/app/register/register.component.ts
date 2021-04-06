@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 import { UserService } from '../user.service';
 
 @Component({
@@ -10,8 +11,10 @@ import { UserService } from '../user.service';
 })
 export class RegisterComponent implements OnInit {
 
+   errormessage;
+   successmessage;
    registerForm:FormGroup
-  constructor(private us:UserService,private router:Router) { }
+  constructor(private us:UserService,private router:Router,private toastr:ToastrService) { }
 
   ngOnInit(): void {
     this.registerForm=new FormGroup({
@@ -32,11 +35,12 @@ export class RegisterComponent implements OnInit {
     this.us.createUser(userObj).subscribe(
       res=>{
         if(res["message"]=="user existed"){
-          alert("Username is already existed..choose another");
+          this.errormessage="Username is already existed..choose another";
+          this.toastr.error(this.errormessage)
         }
         if(res["message"]=="user created"){
-          alert("Registration successful");
-
+          this.successmessage="Registration successful";
+          this.toastr.success(this.successmessage)
           //navigate to login component
           this.router.navigateByUrl("/login");
         }

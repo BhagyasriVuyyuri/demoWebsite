@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 import { AdminService } from '../admin.service';
+import { UserService } from '../user.service';
 
 @Component({
   selector: 'app-home',
@@ -9,17 +11,23 @@ import { AdminService } from '../admin.service';
 })
 export class HomeComponent implements OnInit {
 
-
+  c;
   username;
   products=[];
   searchTerm;
-  search
-  constructor(private as:AdminService,private router:Router) { }
+  search;
+  userCartSize;
+  cartsize;
+  successmessage;
+  errormessage;
+  constructor(private as:AdminService,private us:UserService,private router:Router,private toastr:ToastrService) { }
 
   ngOnInit(): void {
    
     this.username=localStorage.getItem("username")
+    
     this.getAllProducts();
+    this.cartStatus();
    
   }
   login(){
@@ -43,5 +51,75 @@ export class HomeComponent implements OnInit {
     this.router.navigateByUrl("/home")
     window.location.reload();
   }
+  viewitem(p){
+    
+    
+         
+          localStorage.setItem("productname",p["productname"])
+          this.router.navigateByUrl("/viewproduct");
+        }
+        showUserCart(){
+     
+          this.router.navigateByUrl('/usercart')
+          }
+        
+        cartStatus(){
+          this.us.getCartSize(this.username).subscribe(
+            res=>{
+              this.userCartSize=res["cartsize"];
+            },
+
+            err=>{
+              alert("Something went wrong in getting all products")
+              console.log(err)
+            }
+          )
+      
+        }
+      
+
+        additem(n:number){
+          if(this.username!==null){
+            let obj={
+            username:this.username,
+            productname:this.products[n].productname,
+            productID:this.products[n].productID,
+            brand:this.products[n].brand,
+            mfddate:this.products[n].mfddate,
+            cost:this.products[n].cost,
+            description:this.products[n].description,
+            productImgLink:this.products[n].productImgLink
+            }
+            
+            
+            this.us.usercart(obj).subscribe(
+              res=>{
+                if(res["message"]=="success"){
+                  this.successmessage="Product added to cart";
+                  this.toastr.success(this.successmessage)
+                  
+                  // window.location.reload();
+                 this.router.navigateByUrl("/usercart")
+                }
+               
+                if(res["message"]=="Item already added"){
+                 this.errormessage="Item already added..."
+                 this.toastr.error(this.errormessage)
+               }
+               
+              },
+             
+              err=>{
+                alert("Something went wrong in Adding product")
+              console.log(err)
+              }
+            )
+            
+          }
+          else{
+            this.router.navigateByUrl("/login")
+          }
+        }
+  
 
 }

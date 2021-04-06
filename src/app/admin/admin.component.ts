@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 import { AdminService } from '../admin.service';
 
 @Component({
@@ -11,13 +12,16 @@ import { AdminService } from '../admin.service';
 export class AdminComponent implements OnInit {
 
   file:File; 
+  currentRate=0;
   username:any;
+  successmessage;
+  errormessage;
   incomingfile(event:any) {
     this.file= event.target.files[0]; 
   }
   adminname;
   registerForm:FormGroup;
-  constructor(private as:AdminService,private router:Router) { }
+  constructor(private as:AdminService,private router:Router,private toastr:ToastrService) { }
 
   ngOnInit(): void {
     this.username=localStorage.username;
@@ -30,7 +34,9 @@ export class AdminComponent implements OnInit {
         colour:new FormControl(null,Validators.required),
         category:new FormControl(null,Validators.required),
         cost:new FormControl(null,Validators.required),
+        rating:new FormControl(null,Validators.required),
         description:new FormControl(null,Validators.required)
+
     })
   }
   logout(){
@@ -50,11 +56,14 @@ export class AdminComponent implements OnInit {
     this.as.createProduct(formData).subscribe(
       res=>{
         if(res["message"] == "product added"){
-          alert("Product Added Successfully")
+          this.successmessage= "Product Added Successfully"
+          this.toastr.success(this.successmessage)
           this.router.navigateByUrl("/allproducts");
         } 
         if(res["message"] == "product existed"){
-          alert("ProductID is already existed..choose another");
+
+          this.errormessage="ProductID is already existed..choose another";
+          this.toastr.error(this.errormessage)
         }
       },
       err=>{

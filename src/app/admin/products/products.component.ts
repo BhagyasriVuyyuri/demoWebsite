@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 import { AdminService } from 'src/app/admin.service';
 
 @Component({
@@ -10,7 +11,9 @@ import { AdminService } from 'src/app/admin.service';
 export class ProductsComponent implements OnInit {
 
   products=[];
-  constructor(private as:AdminService,private router:Router) { }
+  count;
+  infomessage;
+  constructor(private as:AdminService,private router:Router,private toastr:ToastrService) { }
 
   ngOnInit(): void {
     this.getAllProducts();
@@ -25,6 +28,7 @@ export class ProductsComponent implements OnInit {
     this.as.getProducts().subscribe(
       res=>{
         this.products=res["message"]
+        this.count=this.products.length;
       },
       err=>{
         alert("Something went wrong in getting products")

@@ -64,19 +64,33 @@ adminApiObj.get("/allproducts",asyncHandler(async(req,res,next)=>{
 }))
 
 //get one products
-adminApiObj.get("/oneproduct/:productname",asyncHandler(async(req,res,next)=>{
+
+adminApiObj.post("/viewproduct",asyncHandler(async(req,res,next)=>{
+    let productCollectionObj=req.app.get("productCollectionObj");
+    //console.log("In ViewItem ",req.body)
+    let Obj=req.body;
+    let viewItem=await productCollectionObj.findOne({productname:Obj.productname});
     
-    let productCollectionObj = req.app.get("productCollectionObj");
-    let products = await productCollectionObj.findOne({productname:req.params.productname});
-    res.send({message:products})
+    if(viewItem!==null){
+        //create a token
+        let token = await jwt.sign({productname:viewItem.productname},process.env.secret,{expiresIn:10});
+
+        //send token
+        res.send({message:true,signedToken:token,productname:viewItem.productname});
+    }
+    
 }))
+
+//get one products
+
+
 adminApiObj.get("/getproductdata/:productname",asyncHandler(async (req,res,next)=>{
 
     let productCollectionObj = req.app.get("productCollectionObj") ;
   
     let proObj=await productCollectionObj.findOne({productname:req.params.productname});
     
-    console.log(proObj);
+    console.log("product is",proObj);
     if(proObj!==null){
         res.send({Details:proObj})
     }
@@ -85,6 +99,7 @@ adminApiObj.get("/getproductdata/:productname",asyncHandler(async (req,res,next)
     }
     
     }))
+
 adminApiObj.put("/updateproduct",asyncHandler(async(req,res,next)=>{
     //console.log(req.body)
     let Allproducts=req.app.get("productCollectionObj")
@@ -95,6 +110,7 @@ adminApiObj.put("/updateproduct",asyncHandler(async(req,res,next)=>{
             brand:req.body.brand,
             category:req.body.category,
             colour:req.body.colour,
+            rating:req.body.rating,
             cost:req.body.cost,
             description:req.body.description
            

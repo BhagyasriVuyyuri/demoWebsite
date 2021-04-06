@@ -8,4 +8,7 @@ body{
 .active{
     font-weight: bold;
 }
-
+ngb-rating {
+    color: #FFC107;
+    font-size: 25px;
+}

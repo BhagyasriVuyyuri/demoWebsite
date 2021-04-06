@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 import { AdminService } from 'src/app/admin.service';
 @Component({
   selector: 'app-editproduct',
@@ -10,7 +11,8 @@ import { AdminService } from 'src/app/admin.service';
 export class EditproductComponent implements OnInit {
 
   productname;
-z
+  currentRate;
+  successmessage;
     registerForm=new FormGroup({
     productID:new FormControl(''),
     productname:new FormControl(''),
@@ -18,11 +20,12 @@ z
     category:new FormControl(''),
     colour:new FormControl(''),
     cost:new FormControl(''),
+    rating:new FormControl(''),
     description:new FormControl(''),
    
   })
 
-  constructor(private as:AdminService,private router:Router) { }
+  constructor(private as:AdminService,private router:Router,private toastr:ToastrService) { }
 
   ngOnInit(): void {
     this.productname=localStorage.getItem("productname");
@@ -49,6 +52,7 @@ z
       category:new FormControl(res.Details.category),
       colour:new FormControl(res.Details.colour),
       cost:new FormControl(res.Details.cost),
+      rating:new FormControl(res.Details.rating),
       description:new FormControl(res.Details.description) 
     })
 
@@ -60,7 +64,8 @@ z
     this.as.editproduct(proObj).subscribe(
       res=>{
         if(res["message"]){
-          alert("Product Details Updated")
+          this.successmessage="Product Details Updated"
+          this.toastr.success(this.successmessage)
           this.router.navigateByUrl("/allproducts")
         }
       },

@@ -9,9 +9,10 @@ app.use(exp.static(path.join(__dirname,"./dist/FLIPKARTAPP")))
 const userApiObj=require("./APIS/userApi")
 
 const adminApiObj = require("./APIs/adminApi");
+const cartApiObj=require("./APIS/cartApi")
 app.use("/user",userApiObj)
 app.use("/admin",adminApiObj);
-
+app.use("/cart",cartApiObj)
 const dburl=process.env.dburl
  
 mc.connect(dburl,{useNewUrlParser:true,useUnifiedTopology:true})
@@ -21,9 +22,11 @@ mc.connect(dburl,{useNewUrlParser:true,useUnifiedTopology:true})
        const userCollectionObj=databaseObj.collection("usercollection")
        
        const productCollectionObj=databaseObj.collection("productcollection")
+       const cardCollectionObj=databaseObj.collection("cartcollection")
 
        app.set("userCollectionObj",userCollectionObj)
        app.set("productCollectionObj",productCollectionObj)
+       app.set("cardCollectionObj",cardCollectionObj)
          console.log("Db server started")
 })
 .catch(err=>console.log("err in db connection",err))

@@ -1,16 +1,16 @@
-<body>
+
+<body style="background-image:url('https://i.pinimg.com/originals/0c/64/b8/0c64b866e848e0cacb94466619d02583.jpg');background-size: cover;background-repeat: no-repeat;"> 
+ 
     <div class="container-fluid">
         <span style="margin-left: 0px;">
                 <button class="btn btn-warning  mt-2 float-end m-2" (click)="back()"><h6 class="fas fa-backward m-1"></h6><b>Back</b></button>
         </span>
-        <div class="container">
-            <p class="display-4 text-secondary text-center mt-3">Edit Product</p>
+        <div class=" container col-md-7">
+            <p class="display-4  text-center" style="color: white;">Edit Product</p>
         
-            <form action="form" class="row g-3 mt-5 bg-light p-3" [formGroup]="registerForm" (ngSubmit)="onSubmit()">
-                
-        
-               
-                <div class="form-group col-md-6">
+            <form action="form" class="row g-3 mt-5 bg-light p-3" [formGroup]="registerForm" (ngSubmit)="onSubmit()" style="border-radius: 2%;">
+            
+                <div class="form-group col-md-6 ">
                     <label  class="form-label">Product Name</label>
                     <input type="text" class="form-control"  name="productname" placeholder="name of the product" formControlName="productname">
                    
@@ -50,6 +50,10 @@
                    
                    
                 </div>
+                <div class="form-group col-md-4 mt-2">
+                    <label class="form-label">Rate Product:</label>
+                    <ngb-rating [max]="5" [(rate)]="currentRate" [readonly]="false"  name="rating" class="px-2" formControlName="rating"></ngb-rating>
+                       </div>
                 <div class="form-group">
                     <label>Product Description</label>
                     <textarea cols="50" rows="3"  class="form-control"  name="description" formControlName="description" placeholder="Enter product description" ></textarea>
@@ -57,7 +61,7 @@
                 </div>
             
                
-                <div class="col-12 pt-1">
+                <div class="col-12 pt-1 mb-3 mt-5">
                     <button type="submit" class="btn btn-success" [disabled]="registerForm.invalid"><h5 class="fas fa-edit"></h5>Update Product</button>
                 </div>
             </form>

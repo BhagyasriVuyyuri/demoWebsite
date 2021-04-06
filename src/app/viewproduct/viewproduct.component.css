@@ -8,15 +8,10 @@ h3{
     font-family: 'Merriweather', serif;
     font-family: 'Playfair Display', serif;
 }
-nav{
+p{
     font-family: 'Merriweather', serif;
     font-family: 'Playfair Display', serif;
 }
 .active{
     font-weight: bold;
 }
-ngb-rating {
-    color: #FFC107;
-    font-size: 25px;
-}
-
