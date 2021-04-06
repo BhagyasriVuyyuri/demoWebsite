@@ -11,6 +11,8 @@ export class UsercartComponent implements OnInit {
   username;
   cart:any;
 
+  quantity:any;
+
   constructor(private us:UserService,private router:Router) { }
 
   ngOnInit(): void {
@@ -42,7 +44,9 @@ export class UsercartComponent implements OnInit {
       res=>{
         if(res["message"]){
           alert("Product removed")
-          this.router.navigateByUrl("/usercart")
+          this.router.navigateByUrl("/usercart").then(()=>{
+            window.location.reload();
+          });
         }
       },
       err=>{
@@ -52,7 +56,7 @@ export class UsercartComponent implements OnInit {
     )
 
   }
-  
+ 
   placeorder(n:number){
     let obj=this.cart[n];
     console.log("the order placed is ",obj)

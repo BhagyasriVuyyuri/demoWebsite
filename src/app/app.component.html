@@ -23,7 +23,11 @@
       </li>
       <li class="nav-item">
         <h5>
-        <a class="nav-link" routerLink="usercart" routerLinkActive="active"><i class="fas fa-cart-arrow-down m-2"></i>Cart</a>
+        <a class="nav-link" routerLink="usercart" routerLinkActive="active"><i class="fas fa-cart-arrow-down m-2"><button type="button" class="btn btn-white bg-white" style="border-radius: 10px;" (click)="cartStatus()"> 
+        
+          {{userCartSize}}  
+        </button></i>Cart</a>
+        
         </h5>
       </li>
       <li class="nav-item">

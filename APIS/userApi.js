@@ -25,48 +25,8 @@ userApiObj.post("/register", asynchandler(async  (req,res,next)=>{
      console.log("user obj is",userObj)
   }))
   
-  userApiObj.post("/login", asynchandler(async  (req,res,next)=>{
-      //res.send("i am from user api")
   
-      let userCollectionObj=req.app.get("userCollectionObj")
-      let userCredObj=req.body;
-      let user=await userCollectionObj.findOne({username:userCredObj.username})
-      if(user==null){
-          res.send({message:"Invalid Username"})
-      }
-      else{
-         
-          let status=await bc.compare(userCredObj.password,user.password)
-          if(status==true){
   
-          res.send({message:"success",username:user.username})
-  
-          }
-          else{
-              res.send({message:"Invalid password"})
-          }
-      }
-      
-     
-  }))
-  userApiObj.post("/resetpassword",asynchandler(async(req,res,next)=>{
-
-    userCollectionObj = req.app.get("userCollectionObj");
-
-      obj = req.body;
-      hashedpwd = await bc.hash(obj.password,5);
-      let user=await userCollectionObj.findOne({username:obj.username})
-      if(user==null){
-          res.send({message:"invalid"})
-      }
-      else{
-        let success=await userCollectionObj.updateOne({username:obj.username},{$set:{
-            password:hashedpwd
-        }})
-        res.send({message:"success"});
-    }
-    
-}))
   //get user
   userApiObj.get("/getuser/:username",asynchandler(async (req,res,next)=>{
       //get user collectionobject
@@ -87,8 +47,6 @@ userApiObj.post("/addtocart",asynchandler(async(req,res,next)=>{
 
     
 }))
-
-
 //get all products
 userApiObj.get("/getcartitems/:username",asynchandler(async(req,res,next)=>{
 
@@ -116,24 +74,42 @@ userApiObj.post("/deleteproduct",asynchandler(async(req,res,next)=>{
 userApiObj.post("/placeOrder",asynchandler(async(req,res,next)=>{
 
     console.log("the cart obj is ",req.body)
-    let cartCollectionObj= req.app.get("cartCollectionObj");
+    let ordersCollectionObj= req.app.get("ordersCollectionObj");
 
-    let cartObj=req.body;
+    let ordersObj=req.body;
 
-    await cartCollectionObj.insertOne(cartObj);
+    await ordersCollectionObj.insertOne(ordersObj);
     res.send({message:true})
 
     
 }))
-
-
-userApiObj.get("/getOrders/:username",asynchandler(async(req,res,next)=>{
-
-    let cartCollectionObj = req.app.get("cartCollectionObj");
+userApiObj.post("/deleteOrder",asynchandler(async(req,res,next)=>{
     
-    //let products = await cartCollectionObj.find({username:req.params.username}).toArray();
-    res.send({message:products})
-    //console.log(products)
+    let ordersCollectionObj = req.app.get("ordersCollectionObj");
+    let orderObj =  req.body;
+    
+    console.log("order object is",orderObj);
+    //check for user in db
+    let product = await ordersCollectionObj.findOne({productname:orderObj.productname});
+
+    console.log("product in placeorder delete is",product);
+
+    //product is there
+    if(product!==null){
+        let remove=await ordersCollectionObj.deleteOne({productname:orderObj.productname});
+        res.send({message:true});
+    }
+
 }))
+userApiObj.get("/getOrderitems/:username",asynchandler(async(req,res,next)=>{
+
+    let ordersCollectionObj = req.app.get("ordersCollectionObj");
+    
+    let order = await ordersCollectionObj.find({username:req.params.username}).toArray();
+    res.send({message:order})
+    console.log(order)
+}))
+
+
 
 module.exports=userApiObj;

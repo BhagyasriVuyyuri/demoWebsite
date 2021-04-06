@@ -23,10 +23,13 @@ mc.connect(dburl,{useNewUrlParser:true,useUnifiedTopology:true})
        const productCollectionObj=databaseObj.collection("productcollection")
        
        const cartCollectionObj=databaseObj.collection("cartcollection")
+       const ordersCollectionObj=databaseObj.collection("orderscollection")
+
        
        app.set("userCollectionObj",userCollectionObj)
        app.set("productCollectionObj",productCollectionObj)
        app.set("cartCollectionObj",cartCollectionObj)
+       app.set("ordersCollectionObj",ordersCollectionObj)
          console.log("Db server started")
 })
 .catch(err=>console.log("err in db connection",err))

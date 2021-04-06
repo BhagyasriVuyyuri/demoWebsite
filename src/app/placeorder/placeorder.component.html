@@ -18,6 +18,7 @@
               <p class="card-title">Colour : {{p.colour}}</p> 
               
               <p class="card-title">Cost : {{(p.cost)| currency:"INR"}}</p> 
+              <td class="text-center"><button class="btn btn-danger p-2" (click)="delete(i)"><i class="fa fa-trash" aria-hidden="true"></i>Remove</button></td>
             </div>
           </div>
         </div>

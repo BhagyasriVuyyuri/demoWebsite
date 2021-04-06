@@ -18,11 +18,14 @@
               
               <p class="card-title">Cost : {{(p.cost)| currency:"INR"}}</p> 
               
-              <td class="text-center"><button class="btn btn-danger" (click)="delete(i)">Remove</button></td>
+              <td class="text-center"><button class="btn btn-danger" (click)="delete(i)"><i class="fa fa-trash" aria-hidden="true"></i>Remove</button></td>
               <td class="text-center"><button class="btn btn-success"(click)="placeorder(i)">Place Order</button></td>
+
             
             </div>
+            
           </div>
+          
         </div>
       </div>
 </div>
