@@ -48,7 +48,10 @@ export class ViewproductComponent implements OnInit {
       productname:this.product.productname,
       productID:this.product.productID,
       brand:this.product.brand,
-      mfddate:this.product.mfddate,
+      colour:this.product.colour,
+      rating:this.product.rating,
+      category:this.product.category,
+      quantity:this.product.quantity,
       cost:this.product.cost,
       description:this.product.description,
       productImgLink:this.product.productImgLink

@@ -12,15 +12,51 @@ export class UsercartComponent implements OnInit {
 
   username;
   cart=[];
-  
+  amount;
   constructor(private us:UserService,private router:Router,private toastr:ToastrService) { }
 
   ngOnInit(): void {
     this.username=localStorage.getItem("username")
     this.getCart();
-    
+    this.totalamount(); 
+  }
+  incr(p:any){
+    console.log("quantity is ",p.quantity)
+    console.log("cost",p.cost)
+    if(p.quantity){
+      let cost=p.cost/p.quantity;
+    p.quantity+=1;
+
+    p.cost=p.quantity*cost;
+    this.totalamount();
+    }
+
+  }
+  decr(p:any){
+    if(p.quantity!=1){
+      let cost=p.cost/p.quantity;
+      p.quantity-=1;
+      
+      p.cost=p.quantity*cost;
+      this.totalamount();
+      }
+  
   }
 
+
+
+
+
+  totalamount(){
+    this.amount=0;
+        for(let i=0;i<this.cart.length;i++){
+          let cost=this.cart[i].cost/this.cart[i].quantity;
+          this.amount+=cost*this.cart[i].quantity
+
+       
+        }
+  }
+  
   logout(){
     localStorage.clear();
     this.router.navigateByUrl("/home");
@@ -35,7 +71,7 @@ export class UsercartComponent implements OnInit {
       res=>{
         this.cart=res["message"]
         console.log("the cart items",this.cart)
-       
+        this.totalamount()
 
       },
       err=>{

@@ -29,7 +29,8 @@ export class SearchPipe implements PipeTransform {
          return brand;
        }
        else{
-         this.toastr.error("No Results matched your search")
+       //  this.toastr.error("No Results matched your search");
+         return products;
        }
     }
   }

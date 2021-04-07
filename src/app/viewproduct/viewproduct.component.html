@@ -8,10 +8,12 @@
         
         <div class="col-sm-6 d-flex">
             <div class="align-self-center">
-            <h3>{{product?.productname|titlecase}}</h3>
+            <h1 style="color: darkmagenta;">{{product?.productname|titlecase}}</h1>
             <h5>Product ID:<b>{{product?.productID}} </b></h5>
             <h5>Brand:<b>{{product?.brand}}</b></h5>
             <h5>Colour:<b>{{product?.colour}}</b></h5>
+            <h5>Rating:<ngb-rating [max]="5" [rate]="product?.rating" [readonly]="true"></ngb-rating></h5>
+        
              <h5>Cost: <b>{{product?.cost | currency:"INR"}}</b></h5>
              <h5>Description:<b>{{product?.description}}</b></h5>
            

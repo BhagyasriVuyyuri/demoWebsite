@@ -7,7 +7,9 @@
 
 <div class="container-fluid" style="background-image: url(https://us.123rf.com/450wm/lightfieldstudios/lightfieldstudios1909/lightfieldstudios190921490/130549673-festive-wrapped-presents-in-shopping-cart-on-blue-background-with-copy-space.jpg?ver=6);background-size: cover;background-repeat: no-repeat;">
     <p class="display-4 text-dark text-center">Cart of {{username}}</p>
-    
+    <div class="container-fluid p-3 " *ngIf="cart.length!==0"> 
+      <h3>Total Price:<strong>{{amount | currency:"INR"}}</strong></h3>
+    </div>
     <div class="card mb-3" *ngFor="let p of cart, let i=index" style="max-width: 700px;max-height: 100%;">
         <div class="row">
           <div class="col-md-4">
@@ -17,17 +19,23 @@
             <div class="card-body">
               <h5 class="card-title"><b>{{p.productname}}</b></h5>
                <p class="card-title">Product ID : {{p.productID}}</p> 
-               <p class="card-title">Brand: {{p.brand}}</p>   
+               <p class="card-title">Brand: {{p.brand}}</p>  
+               <p class="card-title">Colour:{{p.colour}}</p> 
+               <p class="card-title">Rating:<ngb-rating [max]="5" [rate]="p.rating" [readonly]="true"></ngb-rating></p>
               <p class="card-title">Cost : {{(p.cost)| currency:"INR"}}</p> 
               <p class="card-title">Product Description : {{p.description}}</p> 
-              <!-- <div class="col-5"> 
+                <div class="col-5">
                      
                 <ul class="pagination justify-content-end set_quantity ">
                   <li class="page-item">
                     <button class="page-link" href="#" (click)="incr(p)"><i class="fa fa-plus" aria-hidden="true"></i>  </button>
                   </li>  
-             
-             <span class="text-center p-1"></span>
+              
+                          <span class="text-center p-1" >{{p.quantity}}</span>
+
+                   
+                     
+                   
                   <li class="page-item">
                     <button class="page-link" href="#" (click)="decr(p)"><i class="fa fa-minus" aria-hidden="true"></i>
                     </button>
@@ -35,7 +43,10 @@
                 </ul>
                 
              
-            </div>-->
+            </div>
+                
+             
+           
               <p class="card-title"><button class="btn btn-danger" (click)="delete(i)"><h5 class="fas fa-times-circle"></h5>delete</button></p>
             </div>
           </div>
@@ -44,6 +55,3 @@
 
  
 </div>
-<!-- <div class="container-fluid p-3 " *ngIf="cart.length!==0"> 
-  <h5 class="text-center amount ">TotalAmount:<strong>{{amount | currency:"INR"}}</strong></h5>
-</div>-->

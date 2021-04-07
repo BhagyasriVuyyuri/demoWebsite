@@ -12,6 +12,8 @@ import { UserService } from '../user.service';
 export class HomeComponent implements OnInit {
 
   c;
+  category;
+  cat=false;
   username;
   products=[];
   searchTerm;
@@ -44,7 +46,27 @@ export class HomeComponent implements OnInit {
       }
     )
   }
- 
+  goto(n){
+    this.cat=true;
+    if(n==0){
+      this.category="ac";
+    }
+    else if(n==1){
+      this.category="tv";
+    }
+    else if(n==2){
+      this.category="washing machine";
+    }
+    else if(n==3){
+      this.category="shoes";
+    }
+    else if(n==4){
+      this.category="watch";
+    }
+    if(n==5){
+      this.category="refrigerator";
+    }
+  }
 
   logout(){
     localStorage.clear();
@@ -87,6 +109,10 @@ export class HomeComponent implements OnInit {
             brand:this.products[n].brand,
             mfddate:this.products[n].mfddate,
             cost:this.products[n].cost,
+            colour:this.products[n].colour,
+            category:this.products[n].category,
+            rating:this.products[n].rating,
+            quantity:this.products[n].quantity,
             description:this.products[n].description,
             productImgLink:this.products[n].productImgLink
             }
