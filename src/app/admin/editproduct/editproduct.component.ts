@@ -19,6 +19,7 @@ export class EditproductComponent implements OnInit {
     brand:new FormControl(''),
     category:new FormControl(''),
     colour:new FormControl(''),
+    quantity:new FormControl(''),
     cost:new FormControl(''),
     rating:new FormControl(''),
     description:new FormControl(''),
@@ -51,6 +52,7 @@ export class EditproductComponent implements OnInit {
       brand:new FormControl(res.Details.brand),
       category:new FormControl(res.Details.category),
       colour:new FormControl(res.Details.colour),
+      quantity:new FormControl(res.Details.quantity),
       cost:new FormControl(res.Details.cost),
       rating:new FormControl(res.Details.rating),
       description:new FormControl(res.Details.description) 

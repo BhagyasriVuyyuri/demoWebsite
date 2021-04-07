@@ -111,6 +111,7 @@ adminApiObj.put("/updateproduct",asyncHandler(async(req,res,next)=>{
             category:req.body.category,
             colour:req.body.colour,
             rating:req.body.rating,
+            quantity:req.body.quantity,
             cost:req.body.cost,
             description:req.body.description
            

@@ -35,6 +35,7 @@ export class AdminComponent implements OnInit {
         category:new FormControl(null,Validators.required),
         cost:new FormControl(null,Validators.required),
         rating:new FormControl(null,Validators.required),
+        quantity:new FormControl(null,Validators.required),
         description:new FormControl(null,Validators.required)
 
     })
