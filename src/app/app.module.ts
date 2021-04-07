@@ -40,7 +40,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     ReactiveFormsModule,
     AdminModule,
     ToastrModule.forRoot({
-      timeOut:2000,
+      timeOut:3000,
       positionClass:'toast-top-center',
       closeButton:true
     }),

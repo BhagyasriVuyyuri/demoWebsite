@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-md navbar-light bg-info fixed-top">
+<nav class="navbar navbar-expand-md navbar-light  fixed-top" style="background-color: #3BB9FF;">
   <a class="navbar-brand" href="#"><img src="assets/logo2.png" width="80px" alt="" style="border-radius: 50%;"></a>
   <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
@@ -86,8 +86,8 @@
     </a>
   </div>
 
-  <div class="container mt-5" style="background-color: turquoise;border-radius: 2%;">
-     <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4">
+  <div class="container mt-5 col-md-10" style="background-color: turquoise;border-radius: 2%;">
+     <div class="row row-cols-1 row-cols-sm-2 row-cols-md-4 row-cols-lg-4">
        <div *ngFor="let p of products|search:searchTerm;let i=index">
           <div class="col">
           <div class="card border-success mb-3 mt-3" style="border-radius: 5%;">
@@ -105,7 +105,7 @@
                 <a  class="btn btn-warning" style="float: left;margin: 10px;" (click)="viewitem(p)"><h5 class="fas fa-eye m-1"></h5>View Product</a>
               </div>
               <div>
-                <a  class="btn btn-info" style="float:right;margin: 10px;color: purple;" (click)="additem(i)">Add to Cart<h5 class="fas fa-cart-arrow-down m-1"></h5></a>
+                <a   class="btn btn-success" style="float:right;margin: 10px;" (click)="additem(i)">Add to Cart<h5 class="fas fa-cart-arrow-down m-1"></h5></a>
               </div>
            </div>
           </div>

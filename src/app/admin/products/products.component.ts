@@ -45,12 +45,15 @@ export class ProductsComponent implements OnInit {
     this.as.deleteProduct(obj).subscribe(
       res=>{
         if(res["message"]){
-          alert("Product removed from Website")
-          window.location.reload();
+          this.toastr.warning('Product Removed from Website');
+          this.router.navigateByUrl("/allproducts").then(() => {​​​​​
+            window.location.reload();
+          }​​​​​);
+         
         }
       },
       err=>{
-        alert("Something went wrong in user creation");
+        alert("Something went wrong");
         console.log(err);
       }
     )

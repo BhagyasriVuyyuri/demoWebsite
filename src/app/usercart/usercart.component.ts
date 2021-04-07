@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 import { UserService } from '../user.service';
 
 @Component({
@@ -12,7 +13,7 @@ export class UsercartComponent implements OnInit {
   username;
   cart=[];
   
-  constructor(private us:UserService,private router:Router) { }
+  constructor(private us:UserService,private router:Router,private toastr:ToastrService) { }
 
   ngOnInit(): void {
     this.username=localStorage.getItem("username")
@@ -34,7 +35,7 @@ export class UsercartComponent implements OnInit {
       res=>{
         this.cart=res["message"]
         console.log("the cart items",this.cart)
-        
+       
 
       },
       err=>{
@@ -52,8 +53,10 @@ export class UsercartComponent implements OnInit {
     this.us.deleteCartProduct(obj).subscribe(
       res=>{
         if(res["message"]){
-          alert("Product removed from Cart")
-          window.location.reload();
+          this.toastr.warning('Product Removed from Cart');
+          this.router.navigateByUrl("/usercart").then(() => {​​​​​
+            window.location.reload();
+          }​​​​​);
         }
       },
       err=>{
@@ -63,8 +66,7 @@ export class UsercartComponent implements OnInit {
     )
 
   }
-  
-  
+ 
 
 
 }
