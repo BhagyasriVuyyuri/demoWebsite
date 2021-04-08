@@ -89,6 +89,54 @@ export class ViewproductComponent implements OnInit {
       this.router.navigateByUrl("/login")
     }
   }
+  wishlist(){
+    if(this.username!==null){
+      let obj={
+      username:this.username,
+      productname:this.product.productname,
+      productID:this.product.productID,
+      brand:this.product.brand,
+      colour:this.product.colour,
+      rating:this.product.rating,
+      category:this.product.category,
+      quantity:this.product.quantity,
+      cost:this.product.cost,
+      description:this.product.description,
+      productImgLink:this.product.productImgLink
+      }
+      
+      //console.log("this new obj is ",obj)
+      this.us.userwishlist(obj).subscribe(
+        res=>{
+         
+            if(res["message"]=="success"){
+              this.successmessage="Product added to wishlist";
+              this.toastr.success(this.successmessage)
+               
+             // window.location.reload();
+               this.router.navigateByUrl("/wishlist")
+            }
+           
+            if(res["message"]=="Item already added"){
+             this.errormessage="Item already added...";
+             this.toastr.error(this.errormessage)
+           //  this.router.navigateByUrl("/usercart")
+           }
+           
+          },
+         
+      
+        err=>{
+          alert("Something went wrong in Adding Course")
+        console.log(err)
+        }
+      )
+      
+    }
+    else{
+      this.router.navigateByUrl("/login")
+    }
+  }
   back(){
     this.router.navigateByUrl("home")
   }

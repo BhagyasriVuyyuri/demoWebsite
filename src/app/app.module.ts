@@ -18,6 +18,8 @@ import { FooterComponent } from './footer/footer.component';
 import {ToastrModule} from 'ngx-toastr';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { PlaceorderComponent } from './placeorder/placeorder.component';
+import { WishlistComponent } from './wishlist/wishlist.component';
 
 @NgModule({
   declarations: [
@@ -30,7 +32,9 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     CategoryPipe,
     ViewproductComponent,
     UsercartComponent,
-    FooterComponent
+    FooterComponent,
+    PlaceorderComponent,
+    WishlistComponent
       
   ],
   imports: [

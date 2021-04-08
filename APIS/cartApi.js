@@ -29,9 +29,10 @@ cartApiObj.post("/addtocart",asynchandler(async(req,res,next)=>{
 cartApiObj.get("/getcartitems/:username",asynchandler(async(req,res,next)=>{
 
     let cardCollectionObj = req.app.get("cardCollectionObj");
-    
+    let productCollectionObj=req.app.get("productCollectionObj");
+    let items=await productCollectionObj.find().toArray()
     let products = await cardCollectionObj.find({username:req.params.username}).toArray();
-    res.send({message:products})
+    res.send({message:products,itemsArray:items})
     //console.log(products)
 }))
 cartApiObj.get("/getsize/:username",asynchandler(async(req,res,next)=>{

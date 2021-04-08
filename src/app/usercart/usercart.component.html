@@ -7,6 +7,10 @@
 
 <div class="container-fluid" style="background-image: url(https://us.123rf.com/450wm/lightfieldstudios/lightfieldstudios1909/lightfieldstudios190921490/130549673-festive-wrapped-presents-in-shopping-cart-on-blue-background-with-copy-space.jpg?ver=6);background-size: cover;background-repeat: no-repeat;">
     <p class="display-4 text-dark text-center">Cart of {{username}}</p>
+    <a routerLink="" (click)="showorders()">
+     
+      <h4 class="fas fa-list-alt text-info text-center" style="text-align: center;">My Orders ({{userOrderSize}})</h4>
+   </a>
     <div class="container-fluid p-3 " *ngIf="cart.length!==0"> 
       <h3>Total Price:<strong>{{amount | currency:"INR"}}</strong></h3>
     </div>
@@ -22,7 +26,10 @@
                <p class="card-title">Brand: {{p.brand}}</p>  
                <p class="card-title">Colour:{{p.colour}}</p> 
                <p class="card-title">Rating:<ngb-rating [max]="5" [rate]="p.rating" [readonly]="true"></ngb-rating></p>
-              <p class="card-title">Cost : {{(p.cost)| currency:"INR"}}</p> 
+              <!-- <p class="card-title">Cost : {{(p.cost)| currency:"INR"}}</p>  -->
+              <p class="card-title price" *ngIf="p.status=='Available'">Price: {{p.cost | currency:"INR"}}</p>
+              <p class="card-title price" *ngIf="p.status=='Unavailable'">Price: <strike>{{p.cost | currency:"INR"}}</strike></p>
+            
               <p class="card-title">Product Description : {{p.description}}</p> 
                 <div class="col-5">
                      
@@ -39,16 +46,31 @@
                   <li class="page-item">
                     <button class="page-link" href="#" (click)="decr(p)"><i class="fa fa-minus" aria-hidden="true"></i>
                     </button>
-                  </li>            
-                </ul>
+                  </li>    
+                   </ul>
                 
-             
+                  
             </div>
-                
+            <div class="row mt-3">
+              <!-- <span class="float-end text-muted" *ngIf="p.status=='Available'">Status: {{p.status}}</span> -->
+              <span class="float-end text-danger" *ngIf="p.status=='Unavailable'">Product {{p.status}}</span>
+            
+            </div>
+            <div class="row mt-3">
+              <div class="col-sm-6 col-md-6">
+                <td class="text-center"><button class="btn btn-success p-2 mt-1" style="display: block; width: 100%;" [disabled]="p.status=='Unavailable'" (click)="additem(i)">Purchase</button></td>
+            </div>
+              <div class="col-sm-6 col-md-6">
+                <p class="card-title"><button class="btn btn-danger" (click)="delete(i)"><h5 class="fas fa-times-circle"></h5>Delete</button></p>
+         
+              </div>
+            
+           </div>
+          
+
              
            
-              <p class="card-title"><button class="btn btn-danger" (click)="delete(i)"><h5 class="fas fa-times-circle"></h5>delete</button></p>
-            </div>
+                 </div>
           </div>
         </div>
       </div>

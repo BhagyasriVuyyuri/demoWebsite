@@ -19,6 +19,7 @@ export class HomeComponent implements OnInit {
   searchTerm;
   search;
   userCartSize;
+  userOrderSize;
   cartsize;
   successmessage;
   errormessage;
@@ -30,6 +31,7 @@ export class HomeComponent implements OnInit {
     
     this.getAllProducts();
     this.cartStatus();
+    this.orderStatus();
    
   }
   login(){
@@ -49,7 +51,7 @@ export class HomeComponent implements OnInit {
   goto(n){
     this.cat=true;
     if(n==0){
-      this.category="ac";
+      this.category="air conditioner";
     }
     else if(n==1){
       this.category="tv";
@@ -66,8 +68,13 @@ export class HomeComponent implements OnInit {
     if(n==5){
       this.category="refrigerator";
     }
+    if(n==7){
+      this.category="sandals";
+    }
   }
-
+  showorders(){
+    this.router.navigateByUrl("/placeorder")
+  }
   logout(){
     localStorage.clear();
     this.router.navigateByUrl("/home")
@@ -93,6 +100,19 @@ export class HomeComponent implements OnInit {
 
             err=>{
               alert("Something went wrong in getting all products")
+              console.log(err)
+            }
+          )
+      
+        }
+        orderStatus(){
+          this.us.getOrderSize(this.username).subscribe(
+            res=>{
+              this.userOrderSize=res["ordersize"];
+            },
+
+            err=>{
+              alert("Something went wrong in orders")
               console.log(err)
             }
           )
@@ -146,6 +166,55 @@ export class HomeComponent implements OnInit {
             this.router.navigateByUrl("/login")
           }
         }
-  
+    
+
+        wishlist(n:number){
+          if(this.username!==null){
+            let obj={
+            username:this.username,
+            productname:this.products[n].productname,
+            productID:this.products[n].productID,
+            brand:this.products[n].brand,
+            cost:this.products[n].cost,
+            colour:this.products[n].colour,
+            category:this.products[n].category,
+            rating:this.products[n].rating,
+            quantity:this.products[n].quantity,
+            description:this.products[n].description,
+            productImgLink:this.products[n].productImgLink
+            }
+            
+            
+            this.us.userwishlist(obj).subscribe(
+              res=>{
+                if(res["message"]=="success"){
+                  this.successmessage="Product added to Wishlist";
+                  this.toastr.success(this.successmessage)
+                  
+                  // window.location.reload();
+                 this.router.navigateByUrl("/wishlist")
+                }
+               
+                if(res["message"]=="Item already added"){
+                 this.errormessage="Item already added to wishlist..."
+                 this.toastr.error(this.errormessage)
+               }
+               
+              },
+             
+              err=>{
+                alert("Something went wrong in Adding product")
+              console.log(err)
+              }
+            )
+            
+          }
+          else{
+            this.router.navigateByUrl("/login")
+          }
+        }
+       showwishlist(){
+         this.router.navigateByUrl("/wishlist")
+       }
 
 }

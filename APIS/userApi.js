@@ -78,5 +78,5 @@ userApiObj.post("/register", asynchandler(async  (req,res,next)=>{
      res.send({message:"success",user:userObj})
   }))
   
-  
+
   module.exports=userApiObj;

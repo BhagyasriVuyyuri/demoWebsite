@@ -42,5 +42,40 @@ export class UserService {
       return this.hc.get("/cart/getsize/"+username);
     }
   
+     //orders
 
+      
+  placeOrder(obj:any):Observable<any>{
+    return this.hc.post("/order/orders",obj);
+  }
+  
+  getOrderItems(username:any):Observable<any>{
+    //console.log("the username is ",username)
+    return this.hc.get("/order/getOrderitem/"+username);
+  }
+  deleteOrderProduct(obj5:any):Observable<any>{
+    return this.hc.post("/order/deleteOrder",obj5);
+  }
+  getOrderSize(username){
+    return this.hc.get("/order/ordersize/"+username);
+  }
+  deleteOrder1(obj:any):Observable<any>{
+    console.log("service delete is",obj)
+    return this.hc.post("/order/deleteOrder1",obj);
+    
+  }
+
+
+
+
+  userwishlist(obj):Observable<any>{
+    return this.hc.post("/wish/addto",obj)
+  }
+  getWishlistItems(username):Observable<any>{
+    return this.hc.get("/wish/getwishlistitems/"+username);
+  }
+  deleteWishlistProduct(obj):Observable<any>{
+   
+    return this.hc.post("/wish/deleteproduct",obj);
+  }
 }
