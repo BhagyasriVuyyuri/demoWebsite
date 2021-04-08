@@ -28,7 +28,7 @@ userApiObj.post("/register", asynchandler(async  (req,res,next)=>{
   
   
   //get user
-  userApiObj.get("/getuser/:username",asynchandler(async (req,res,next)=>{
+userApiObj.get("/getuser/:username",asynchandler(async (req,res,next)=>{
       //get user collectionobject
       let userCollectionObj= req.app.get("userCollectionObj")
      let userObj=await userCollectionObj.findOne({username:req.params.username})
@@ -37,15 +37,23 @@ userApiObj.post("/register", asynchandler(async  (req,res,next)=>{
 
 userApiObj.post("/addtocart",asynchandler(async(req,res,next)=>{
 
-    console.log("the cart obj is ",req.body)
+    //console.log("the cart obj is ",req.body)
     let cartCollectionObj= req.app.get("cartCollectionObj");
 
     let cartObj=req.body;
+    let prd = await cartCollectionObj.findOne({productname:cartObj.productname,username:cartObj.username})
+   if(prd==null){
+    let userCart = await cartCollectionObj.find({  username:req.body.username});
+        await cartCollectionObj.insertOne(cartObj);
+        res.send({message:"success",cartsize:userCart.length})    
+   }
+    else{
+        let userCart = await cartCollectionObj.find({  username:req.body.username});
+     res.send({message:"Item already added",cartsize:userCart.length})
+    }
 
-    await cartCollectionObj.insertOne(cartObj);
-    res.send({message:true})
-
-    
+    //await cartCollectionObj.insertOne(cartObj);
+    //res.send({message:true})    
 }))
 //get all products
 userApiObj.get("/getcartitems/:username",asynchandler(async(req,res,next)=>{
@@ -55,6 +63,14 @@ userApiObj.get("/getcartitems/:username",asynchandler(async(req,res,next)=>{
     let products = await cartCollectionObj.find({username:req.params.username}).toArray();
     res.send({message:products})
     //console.log(products)
+}))
+userApiObj.get("/getsize/:username",asynchandler(async(req,res,next)=>{
+    let cartCollectionObj = req.app.get("cartCollectionObj");
+    
+    let cart=await cartCollectionObj.find({username:req.params.username}).toArray();
+    let cartlength=cart.length;
+    res.send({cartsize:cartlength } );
+    //console.log("the size is ",cart);
 }))
 userApiObj.post("/deleteproduct",asynchandler(async(req,res,next)=>{
     
@@ -83,6 +99,26 @@ userApiObj.post("/placeOrder",asynchandler(async(req,res,next)=>{
 
     
 }))
+
+userApiObj.post("/deleteOrder1",asynchandler(async(req,res,next)=>{
+    
+    let cartCollectionObj = req.app.get("cartCollectionObj");
+    let cartObj =  req.body;
+    
+    console.log("user object is",cartObj);
+
+    //check for user in db
+    let product = await cartCollectionObj.findOne({productname:cartObj.productname});
+
+    console.log("product delete in add to cart ",product)
+    //product is there
+    if(product!==null){
+        let remove=await cartCollectionObj.deleteOne({productname:cartObj.productname});
+        res.send({message:true});
+    }
+
+}))
+
 userApiObj.post("/deleteOrder",asynchandler(async(req,res,next)=>{
     
     let ordersCollectionObj = req.app.get("ordersCollectionObj");
@@ -109,7 +145,5 @@ userApiObj.get("/getOrderitems/:username",asynchandler(async(req,res,next)=>{
     res.send({message:order})
     console.log(order)
 }))
-
-
 
 module.exports=userApiObj;

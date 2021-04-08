@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 import { UserService } from '../user.service';
 
 @Component({
@@ -11,7 +12,7 @@ export class PlaceorderComponent implements OnInit {
   username;
   order:any;
 
-  constructor(private us:UserService,private router:Router) { }
+  constructor(private toastr:ToastrService,private us:UserService,private router:Router) { }
 
   ngOnInit(): void {
     this.username=localStorage.getItem("username")
@@ -28,7 +29,7 @@ export class PlaceorderComponent implements OnInit {
         this.order=res["message"]
       },
       err=>{
-        alert("Something went wrong in Adding Course")
+        this.toastr.warning("Something went wrong in Adding Course")
         console.log(err)
       }
     )
@@ -41,14 +42,14 @@ export class PlaceorderComponent implements OnInit {
     this.us.deleteOrderProduct(obj).subscribe(
       res=>{
         if(res["message"]){
-          alert("Product removed")
+          this.toastr.success("Product removed");
           this.router.navigateByUrl("/placeorder").then(()=>{
             window.location.reload();
           });
         }
       },
       err=>{
-        alert("Something went wrong in user creation");
+        this.toastr.warning("Something went wrong in user creation");
         console.log(err);
       }
     )

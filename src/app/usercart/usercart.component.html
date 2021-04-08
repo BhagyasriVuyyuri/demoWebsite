@@ -17,6 +17,19 @@
               <p class="card-title">Colour : {{p.colour}}</p> 
               
               <p class="card-title">Cost : {{(p.cost)| currency:"INR"}}</p> 
+
+              <ul class="pagination justify-content-end set_quantity ">
+                <li class="page-item">
+                  <button class="page-link" href="#" (click)="incr(p)"><i class="fa fa-plus" aria-hidden="true"></i>  </button>
+                </li>  
+            <!--<li class="page-item"><input type="text" name=""  class="page-link" [value]=p.quantity id="textbox"></li>-->
+           
+           <span class="text-center p-1" >{{p.quantity}}</span>
+                <li class="page-item">
+                  <button class="page-link" href="#" (click)="decr(p)"><i class="fa fa-minus" aria-hidden="true"></i>
+                  </button>
+                </li>            
+              </ul>
               
               <td class="text-center"><button class="btn btn-danger" (click)="delete(i)"><i class="fa fa-trash" aria-hidden="true"></i>Remove</button></td>
               <td class="text-center"><button class="btn btn-success"(click)="placeorder(i)">Place Order</button></td>
@@ -28,4 +41,9 @@
           
         </div>
       </div>
+      
+      <div class="container-fluid p-3 " *ngIf="cart.length!==0">
+    <h5 class="text-center amount ">TotalAmount:<strong>{{amount | currency:"INR"}}</strong></h5>
+  </div>
+      
 </div>

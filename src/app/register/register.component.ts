@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 import { UserService } from '../user.service';
 @Component({
   selector: 'app-register',
@@ -8,7 +9,7 @@ import { UserService } from '../user.service';
 })
 export class RegisterComponent implements OnInit {
 
-  constructor(private us:UserService,private router:Router) { }
+  constructor(private toastr:ToastrService,private us:UserService,private router:Router) { }
 
   ngOnInit(): void {
   }
@@ -22,17 +23,17 @@ export class RegisterComponent implements OnInit {
     this.us.createUser(userObj).subscribe(
       res=>{
         if(res["message"]=="user existed"){
-          alert("Username is already existed..choose another");
+          this.toastr.warning("Username is already existed..choose another");
         }
         if(res["message"]=="user created"){
-          alert("Registration successful");
+          this.toastr.success("Registration successful");
 
           //navigate to login component
           this.router.navigateByUrl("/login");
         }
       },
       err=>{
-        alert("Something went wrong in user creation");
+        this.toastr.warning("Something went wrong in user creation");
         console.log(err);
       }  
     )

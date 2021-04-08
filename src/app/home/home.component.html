@@ -1,11 +1,18 @@
 <div class="bg-light text-center" *ngIf="username!=null">
     <h3 class="d-1 pr-5"><h4 class="fas fa-user text-info p-2"></h4>{{username}}</h3>
     
+    <a routerLink="" (click)="showUserCart()" >
+      <h4 class="fas fa-cart-arrow-down  text-danger text-center mt-3">
+          <sup class="text-danger float-end">
+              {{userCartSize}}
+          </sup>
+      </h4>
+    </a>
+
     <button class="btn btn-success  px-4 float-end" (click)="logout()"><h6 class="fas fa-sign-out-alt m-1"></h6><b>Logout</b></button>
-   
   </div>
   
-  <div class="container mt-5">
+  <div class="container mt-5 ">
      <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4">
        <div *ngFor="let p of products,let i=index">
           <div class="col">
@@ -16,6 +23,7 @@
              <h5 class="card-text text-center">brand:{{p.brand}}</h5>
              <h5 class="card-text text-center">cost:{{(p.cost)| currency:"INR"}}</h5>
              
+             
            </div>
            <div class="card-footer bg-transparent border-success">
               <div>
@@ -23,7 +31,7 @@
               </div>
               <div>
                 
-                <a class="btn btn-info"  (click)="additem(i)" style="float:right;margin: 10px;color: purple;" ><h5 class="fas fa-cart-arrow-down m-1"></h5>Add to Cart</a>
+                <a class="btn btn-info" (click)="additem(i)" style="float:right;margin: 10px;color: purple;" ><h5 class="fas fa-cart-arrow-down m-1"></h5>Add to Cart</a>
             
               </div>
            </div>

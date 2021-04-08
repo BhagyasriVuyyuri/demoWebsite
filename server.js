@@ -9,8 +9,10 @@ app.use(exp.static(path.join(__dirname,"./dist/FLIPKART")))
 const userApiObj=require("./APIS/userApi")
 
 const adminApiObj = require("./APIs/adminApi");
+
 app.use("/user",userApiObj)
 app.use("/admin",adminApiObj);
+
 
 const dburl="mongodb+srv://cdb37:cdb37@cluster0.rxpyc.mongodb.net/ProjectDatabase?retryWrites=true&w=majority";
  
@@ -42,8 +44,6 @@ app.use((req,res,next)=>{
 app.use((err,req,res,next)=>{
        res.send({message:"error occurred",reason:err.message})
 })
-//const port=process.env.port;
-//app.listen(port,()=>console.log(`server on port ${port}....`))
 
 const port=4000
 app.listen(port,()=>console.log(`web server runs on ${port}`))
