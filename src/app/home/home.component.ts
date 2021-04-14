@@ -10,7 +10,12 @@ import { UserService } from '../user.service';
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements OnInit {
-
+  
+  userObj;
+ 
+ 
+  admin=false;
+ 
   c;
   category;
   cat=false;
@@ -22,6 +27,7 @@ export class HomeComponent implements OnInit {
   userOrderSize;
   cartsize;
   successmessage;
+  spinning:any=0;
   errormessage;
   constructor(private as:AdminService,private us:UserService,private router:Router,private toastr:ToastrService) { }
 
@@ -32,14 +38,18 @@ export class HomeComponent implements OnInit {
     this.getAllProducts();
     this.cartStatus();
     this.orderStatus();
+
+    
    
   }
+  
   login(){
     this.router.navigateByUrl("/login")
   }
   getAllProducts(){
     this.as.getProducts().subscribe(
       res=>{
+        this.spinning=1
         this.products=res["message"]
       },
       err=>{

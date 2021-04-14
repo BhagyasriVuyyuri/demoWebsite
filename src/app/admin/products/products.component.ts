@@ -63,7 +63,7 @@ export class ProductsComponent implements OnInit {
      this.router.navigateByUrl("/admincomp")
    }
    edit(p){
-    localStorage.setItem("productname",p["productname"]);
+    localStorage.setItem("productID",p["productID"]);
     this.router.navigateByUrl("/admin/editproduct");
    }
 }

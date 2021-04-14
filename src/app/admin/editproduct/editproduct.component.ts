@@ -11,10 +11,11 @@ import { AdminService } from 'src/app/admin.service';
 export class EditproductComponent implements OnInit {
 
   productname;
+  productID;
   currentRate;
   successmessage;
     registerForm=new FormGroup({
-    productID:new FormControl(''),
+    productID:new FormControl({value:'',disabled:true}),
     productname:new FormControl(''),
     brand:new FormControl(''),
     category:new FormControl(''),
@@ -29,7 +30,7 @@ export class EditproductComponent implements OnInit {
   constructor(private as:AdminService,private router:Router,private toastr:ToastrService) { }
 
   ngOnInit(): void {
-    this.productname=localStorage.getItem("productname");
+    this.productID=localStorage.getItem("productID");
     this.getproductdata();
  
     
@@ -41,14 +42,15 @@ export class EditproductComponent implements OnInit {
     this.router.navigateByUrl("/allproducts")
   }
   getproductdata(){
-  this.as.getproductdata(this.productname).subscribe(
+  this.as.getproductdata(this.productID).subscribe(
     res=>{
               
         console.log(res)
        this.registerForm=new FormGroup({
-     
+       
       productname:new FormControl(res.Details.productname),
       productID:new FormControl(res.Details.productID),
+     
       brand:new FormControl(res.Details.brand),
       category:new FormControl(res.Details.category),
       colour:new FormControl(res.Details.colour),
@@ -63,6 +65,7 @@ export class EditproductComponent implements OnInit {
   onSubmit(){
     console.log(this.registerForm.value);
     let proObj=this.registerForm.value;
+    console.log("prodobj",proObj)
     this.as.editproduct(proObj).subscribe(
       res=>{
         if(res["message"]){
@@ -70,6 +73,7 @@ export class EditproductComponent implements OnInit {
           this.toastr.success(this.successmessage)
           this.router.navigateByUrl("/allproducts")
         }
+        
       },
       err=>{
         alert("Something went wrong")

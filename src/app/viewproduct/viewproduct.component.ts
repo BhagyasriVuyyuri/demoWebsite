@@ -25,14 +25,14 @@ export class ViewproductComponent implements OnInit {
     this.getProduct();
   }
    getProduct(){
-     this.as.getproductdata(this.productname).subscribe(
+     this.as.getproductdetails(this.productname).subscribe(
       res=>{
-        if(["Details"]){
+        if(res.Details){
           this.product=res.Details
           console.log(this.product)
         }
         else{
-          alert("book not found")
+          alert("product not found")
         }
       },
       err=>{
