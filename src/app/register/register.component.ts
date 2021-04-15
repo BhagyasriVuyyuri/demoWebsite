@@ -12,7 +12,11 @@ import { UserService } from '../user.service';
 export class RegisterComponent implements OnInit {
 
    errormessage;
+   id:number;
+   userId:number;
    successmessage;
+   status:any=0;
+   closeAlert:string;
    registerForm:FormGroup
   constructor(private us:UserService,private router:Router,private toastr:ToastrService) { }
 
@@ -24,6 +28,7 @@ export class RegisterComponent implements OnInit {
        username:new FormControl(null,[Validators.required,Validators.minLength(4)]),
        password:new FormControl(null,[Validators.required,Validators.minLength(6),Validators.pattern('^(?=.*?[0-9])(?=.*?[A-Z]).*$')])
     })
+   
   }
   login(){
     this.router.navigateByUrl("/login")
@@ -31,6 +36,8 @@ export class RegisterComponent implements OnInit {
   onSubmit(){   
     let userObj = this.registerForm.value;
     console.log(userObj);
+    this.userId = (Math.floor(Math.random() * 301))+3000;
+    userObj.userId=this.userId;
     
     this.us.createUser(userObj).subscribe(
       res=>{
@@ -41,8 +48,9 @@ export class RegisterComponent implements OnInit {
         if(res["message"]=="user created"){
           this.successmessage="Registration successful";
           this.toastr.success(this.successmessage)
+          this.id=this.userId
           //navigate to login component
-          this.router.navigateByUrl("/login");
+        //  this.router.navigateByUrl("/login");
         }
       },
       err=>{

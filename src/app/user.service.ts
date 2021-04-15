@@ -30,52 +30,52 @@ export class UserService {
       return this.hc.post("/cart/addtocart",obj);
     }
 
-    getCartItems(username):Observable<any>{
+    getCartItems(userId):Observable<any>{
       //console.log("the username is ",username)
-      return this.hc.get("/cart/getcartitems/"+username);
+      return this.hc.get("/cart/getcartitems/"+userId);
     }
     deleteCartProduct(obj):Observable<any>{
       return this.hc.post("/cart/deleteproduct",obj);
     }
 
-    getCartSize(username){
-      return this.hc.get("/cart/getsize/"+username);
+    getCartSize(userId){
+      return this.hc.get("/cart/getsize/"+userId);
     }
   
      //orders
 
       
-  placeOrder(obj:any):Observable<any>{
-    return this.hc.post("/order/orders",obj);
-  }
-  
-  getOrderItems(username:any):Observable<any>{
-    //console.log("the username is ",username)
-    return this.hc.get("/order/getOrderitem/"+username);
-  }
-  deleteOrderProduct(obj5:any):Observable<any>{
-    return this.hc.post("/order/deleteOrder",obj5);
-  }
-  getOrderSize(username){
-    return this.hc.get("/order/ordersize/"+username);
-  }
-  deleteOrder1(obj:any):Observable<any>{
-    console.log("service delete is",obj)
-    return this.hc.post("/order/deleteOrder1",obj);
+     placeOrder(obj:any):Observable<any>{
+      return this.hc.post("/order/orders",obj);
+    }
     
-  }
-
-
-
-
-  userwishlist(obj):Observable<any>{
-    return this.hc.post("/wish/addto",obj)
-  }
-  getWishlistItems(username):Observable<any>{
-    return this.hc.get("/wish/getwishlistitems/"+username);
-  }
-  deleteWishlistProduct(obj):Observable<any>{
-   
-    return this.hc.post("/wish/deleteproduct",obj);
-  }
+    getOrderItems(userId:any):Observable<any>{
+      //console.log("the username is ",username)
+      return this.hc.get("/order/getOrderitem/"+userId);
+    }
+    deleteOrderProduct(obj5:any):Observable<any>{
+      return this.hc.post("/order/deleteOrder",obj5);
+    }
+    getOrderSize(userId){
+      return this.hc.get("/order/ordersize/"+userId);
+    }
+    deleteOrder1(obj:any):Observable<any>{
+     
+      return this.hc.post("/order/deleteOrder1",obj);
+      
+    }
+  
+   //user wishlist
+  
+  
+    userwishlist(obj):Observable<any>{
+      return this.hc.post("/wish/addto",obj)
+    }
+    getWishlistItems(userId):Observable<any>{
+      return this.hc.get("/wish/getwishlistitems/"+userId);
+    }
+    deleteWishlistProduct(obj):Observable<any>{
+     
+      return this.hc.post("/wish/deleteproduct",obj);
+    }
 }

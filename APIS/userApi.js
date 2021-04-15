@@ -42,7 +42,7 @@ userApiObj.post("/register", asynchandler(async  (req,res,next)=>{
           if(status==true){
           
             let token=await jwt.sign({username:user.username},process.env.secret,{expiresIn:10})
-            res.send({message:"success",signedToken:token,username:user.username})
+            res.send({message:"success",signedToken:token,userId:user.userId,username:user.username})
     
           }
           else{

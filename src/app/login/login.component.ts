@@ -14,6 +14,7 @@ export class LoginComponent implements OnInit {
 
   loginForm:FormGroup;
   s1:any;
+  userId:any;
   status:any;
    errormessage;
   constructor(private as:AdminService,private router:Router,private us:UserService,private toastr:ToastrService) { }
@@ -42,6 +43,7 @@ export class LoginComponent implements OnInit {
           if(res["message"]=="success"){
             localStorage.setItem("token",res["signedToken"])
               localStorage.setItem("username",res["username"])
+              localStorage.setItem("userId",res["userId"])
               if(res.username=="Admin"){
                 this.router.navigateByUrl("/admincomp")
               }

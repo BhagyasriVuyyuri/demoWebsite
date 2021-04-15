@@ -13,6 +13,7 @@ export class ViewproductComponent implements OnInit {
 
  productname;
  username;
+ userId;
  product;
  successmessage;
  errormessage;
@@ -22,6 +23,7 @@ export class ViewproductComponent implements OnInit {
   ngOnInit(): void {
     this.productname=localStorage.getItem("productname")
      this.username=localStorage.getItem("username")
+     this.userId=localStorage.getItem("userId")
     this.getProduct();
   }
    getProduct(){
@@ -45,6 +47,7 @@ export class ViewproductComponent implements OnInit {
     if(this.username!==null){
       let obj={
       username:this.username,
+      userId:this.userId,
       productname:this.product.productname,
       productID:this.product.productID,
       brand:this.product.brand,
@@ -93,6 +96,7 @@ export class ViewproductComponent implements OnInit {
     if(this.username!==null){
       let obj={
       username:this.username,
+      userId:this.userId,
       productname:this.product.productname,
       productID:this.product.productID,
       brand:this.product.brand,

@@ -16,19 +16,23 @@ export class WishlistComponent implements OnInit {
   userCartSize;
   product;
   successmessage;
+  spinner=true
   errormessage;
+  userId;
   constructor(private us:UserService, private router:Router, private toastr:ToastrService) { }
 
   ngOnInit(): void {
 
     this.username=localStorage.getItem("username")
+    this.userId=localStorage.getItem("userId")
     this.getWishlist();
     this.cartStatus();
   }
 
   getWishlist(){
-    this.us.getWishlistItems(this.username).subscribe(
+    this.us.getWishlistItems(this.userId).subscribe(
       res=>{
+        this.spinner=false
         this.wishlist=res.message
         //console.log("the wishlist items",this.wishlist)
       },
@@ -40,7 +44,7 @@ export class WishlistComponent implements OnInit {
   }
 
   cartStatus(){
-    this.us.getCartSize(this.username).subscribe(
+    this.us.getCartSize(this.userId).subscribe(
       res=>{
         this.userCartSize=res["cartsize"];
       },
@@ -56,6 +60,7 @@ export class WishlistComponent implements OnInit {
     if(this.username!==null){
       let obj={
       username:this.username,
+      userId:this.userId,
       productname:p.productname,
       productID:p.productID,
       brand:p.brand,

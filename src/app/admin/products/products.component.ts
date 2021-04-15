@@ -13,6 +13,7 @@ export class ProductsComponent implements OnInit {
   products=[];
   count;
   infomessage;
+  spinner=true
   constructor(private as:AdminService,private router:Router,private toastr:ToastrService) { }
 
   ngOnInit(): void {
@@ -27,6 +28,7 @@ export class ProductsComponent implements OnInit {
   getAllProducts(){
     this.as.getProducts().subscribe(
       res=>{
+        this.spinner=false
         this.products=res["message"]
         this.count=this.products.length;
       },
